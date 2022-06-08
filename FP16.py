@@ -16,12 +16,15 @@ class FP16:
 
     def printIEEE(self):
         print(str(bin(self.sign)[2:]),end=' ') # [2:] zeby uciac 0b ktore zwraca bin()
-        print(str(bin(self.exponent)[2:]),end=' ')
-        print(str(bin(self.mantisa)[2:]))
+        print(str(bin(self.exponent)[2:]).zfill(5),end=' ')
+        print(str(bin(self.mantisa)[2:]).zfill(10))
 
     def ieee_to_float(self):
         return (-1) ** self.sign * 2 ** (self.exponent - 15) * (1 + self.mantisa/1024)
         
+def MUL(num1, num2):
+    return 0
+
 def DIV(num1, num2):
     return 2 ** ((num1.exponent - 15) - (num2.exponent - 15)) * ((1 + num1.mantisa/1024)/(1 + num2.mantisa/1024))
 
@@ -33,6 +36,6 @@ def LDIV(num1,num2):
 def SR(num):
     return 2 ** (0.5 * (num.exponent - 15)) * m.sqrt(1+num.mantisa/1024)
 
-def ISR(num):
+def LSR(num):
     k1 = m.log(1 + num.mantisa/1024, 2)
     return 2 ** (0.5 * (num.exponent + k1) - 7.5)
