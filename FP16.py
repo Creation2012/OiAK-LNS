@@ -23,19 +23,13 @@ class FP16:
         return (-1) ** self.sign * 2 ** (self.exponent - 15) * (1 + self.mantisa/1024)
         
 def MUL(num1, num2):
-    return 0
+    return (-1)**num1.sign * (-1) ** num2.sign * 2 ** (num1.exponent - 15 + num2.exponent - 15) * (1 + num1.mantisa/1024) * (1 + num2.mantisa/1024)
 
 def DIV(num1, num2):
-    return 2 ** ((num1.exponent - 15) - (num2.exponent - 15)) * ((1 + num1.mantisa/1024)/(1 + num2.mantisa/1024))
-
-def LDIV(num1,num2):
-    k1 = m.log(1 + num1.mantisa/1024, 2)
-    k2 = m.log(1 + num2.mantisa/1024, 2)
-    return 2 ** ((num1.exponent + k1) - (num2.exponent + k2)) 
+    return (-1)**num1.sign * (-1)**num2.sign * 2 ** ((num1.exponent - 15) - (num2.exponent - 15)) * ((1 + num1.mantisa/1024)/(1 + num2.mantisa/1024))
 
 def SR(num):
-    return 2 ** (0.5 * (num.exponent - 15)) * m.sqrt(1+num.mantisa/1024)
+    return 2 ** (0.5 * (num.exponent - 15)) * (1+num.mantisa/1024)**0.5
 
-def LSR(num):
-    k1 = m.log(1 + num.mantisa/1024, 2)
-    return 2 ** (0.5 * (num.exponent + k1) - 7.5)
+def ISR(num):
+    return SR(num) ** -1
