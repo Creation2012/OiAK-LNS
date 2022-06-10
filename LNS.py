@@ -1,3 +1,5 @@
+import numpy as np
+
 def logconverter(mantisa):
     m = mantisa
     if m in range(0,96):
@@ -34,7 +36,6 @@ def logconverter(mantisa):
 
 def antilogconverter(mantisa):
     m = mantisa
-    print('DEBUG: ', m)
     if m in range(0,160):
         a = [-2,-6]
         b = 8188
@@ -68,24 +69,22 @@ def antilogconverter(mantisa):
     return shifted
 
 def lns_to_float(num):
-    k = logconverter(num.mantisa)/1024
-    return (-1)**num.sign * 2 ** (num.exponent - 15) * 2 ** k
+    return np.float16((-1)**num.sign * 2 ** (num.exponent - 15) * 2 ** (num.mantisa/1024))
 
 def LMUL(num1, num2):
-    k1 = logconverter(num1.mantisa)/1024 # bitwise shift? 
+    k1 = logconverter(num1.mantisa)/1024 
     k2 = logconverter(num2.mantisa)/1024
-    return (-1) ** num1.sign * (-1) ** num2.sign * 2 ** ((num1.exponent + num2.exponent + k1 + k2) - 30)
-    #return (-1) ** num1.sign * (-1) ** num2.sign * 2 ** ((num1.exponent + logconverter(num1.mantisa)/1024) + (num2.exponent + logconverter(num2.mantisa)/1024))
+    return np.float16((-1) ** num1.sign * (-1) ** num2.sign * 2 ** ((num1.exponent + num2.exponent + k1 + k2) - 30))
 
 def LDIV(num1, num2):
     k1 = logconverter(num1.mantisa)/1024
     k2 = logconverter(num2.mantisa)/1024
-    return (-1) ** num1.sign * (-1) ** num2.sign * 2 ** ((num1.exponent + k1) - (num2.exponent + k2))
+    return np.float16((-1) ** num1.sign * (-1) ** num2.sign * 2 ** ((num1.exponent + k1) - (num2.exponent + k2)))
 
 def LSR(num1):
     k = logconverter(num1.mantisa)/1024
-    return 2 ** (0.5 * (num1.exponent + k) - 7.5)
+    return np.float16(2 ** (0.5 * (num1.exponent + k) - 7.5))
 
 def LISR(num1):
     k = logconverter(num1.mantisa)/1024
-    return 2 ** (-0.5 * (num1.exponent + k) + 7.5)
+    return np.float16(2 ** (-0.5 * (num1.exponent + k) + 7.5))
