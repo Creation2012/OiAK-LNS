@@ -31,11 +31,10 @@ def gen_lns():
     for i in range(0,100):
         number1 = FP16.FP16(random.uniform(0.1,5.0))
         number2 = FP16.FP16(random.uniform(0.1,5.0))
-        
 
 def example():
-    number1 = FP16.FP16(2.5)
-    number2 = FP16.FP16(5.0)
+    number1 = FP16.FP16(0.75)
+    number2 = FP16.FP16(0.25)
 
     print('NUMBER 1: ', number1.fpValue) 
     print('FP16: ', end='') 

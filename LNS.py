@@ -1,4 +1,5 @@
 import numpy as np
+import adder
 
 def logconverter(mantisa):
     m = mantisa
@@ -28,10 +29,16 @@ def logconverter(mantisa):
         b = 2055
 
     shifted = m << 3
-    shifted += b
-    shifted += sum([-1 * (m >> abs(i)) if i < 0 else m >> abs(i) for i in a])
+    shifted = int(adder.adder_tree(bin(shifted)[2:].zfill(13),bin(b)[2:].zfill(13)),2)
+    #shifted += b
+    #shifted += sum([-1 * (m >> abs(i)) if i < 0 else m >> abs(i) for i in a])
+    #print('Po sumie a: ', a)
+    for i in a:
+        if i < 0:
+            shifted = int(adder.adder_tree(bin(shifted)[2:].zfill(13),bin(abs(i))[2:].zfill(13)),2)
+        else:
+            shifted = int(adder.adder_tree(bin(shifted)[2:].zfill(13),bin(i)[2:].zfill(13)),2)
     shifted = shifted >> 3
-    
     return shifted
 
 def antilogconverter(mantisa):
