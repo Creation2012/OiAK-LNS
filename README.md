@@ -1,6 +1,6 @@
 # OiAK-LNS
 Project for WUST course OiAK. Tried to implement solution of article "Half-Precision Logarithmic Arithmetic Unit Based on the Fused Logarithmic and Antilogarithmic Converter".
-Based on https://ieeexplore.ieee.org/document/9667268
+https://ieeexplore.ieee.org/document/9667268
 
 # Status 
 The current state of project is implementation of of basic Half-Precision (FP16) converter, and Logarithmic Number System (LNS) converter for representing given floating point number.
