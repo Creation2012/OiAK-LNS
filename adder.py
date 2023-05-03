@@ -17,8 +17,3 @@ def adder_tree(num1,num2):
     result.insert(0,c)
 
     return ''.join(str(x) for x in result)
-
-#num1 = bin(2048)[2:].zfill(13)
-#num2 = bin(269)[2:].zfill(13)
-
-#print(int(adder_tree(num1,num2),2))
